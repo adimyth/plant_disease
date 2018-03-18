@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask import *
 from flask import Flask, request, redirect, url_for
-import predict
+# import predict
 
 UPLOAD_FOLDER = './upload_folder'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
