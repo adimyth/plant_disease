@@ -96,7 +96,6 @@ def train_top_model():
     )
     p_loss.line(x_axis, acc, legend='training loss', line_color='red')
 
-
     grid = gridplot([[p_acc, p_loss]])
     show(grid)
     model.save(top_model_path)

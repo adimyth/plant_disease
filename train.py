@@ -1,120 +1,181 @@
+# import the necessary packages
 from keras.models import Sequential
-from keras.optimizers import SGD, Adam
-from keras.callbacks import ModelCheckpoint, CSVLogger
-from keras.layers import Convolution2D, MaxPooling2D, Dropout, Dense, Flatten
-from keras.preprocessing.image import load_img, img_to_array
-from sklearn.model_selection import train_test_split
-import os
-import h5py
+from keras.layers.normalization import BatchNormalization
+from keras.layers.convolutional import Conv2D
+from keras.layers.convolutional import MaxPooling2D
+from keras.layers.core import Activation
+from keras.layers.core import Flatten
+from keras.layers.core import Dropout
+from keras.layers.core import Dense
+from keras import backend as K
 import glob
+
+class SmallerVGGNet:
+	@staticmethod
+	def build(width, height, depth, classes):
+		model = Sequential()
+		inputShape = (height, width, depth)
+		chanDim = -1
+
+		# if we are using "channels first", update the input shape
+		# and channels dimension
+		if K.image_data_format() == "channels_first":
+			inputShape = (depth, height, width)
+			chanDim = 1
+
+		# CONV => RELU => POOL
+		model.add(Conv2D(32, (3, 3), padding="same",
+			input_shape=inputShape))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(MaxPooling2D(pool_size=(3, 3)))
+		model.add(Dropout(0.25))
+
+		# (CONV => RELU) * 2 => POOL
+		model.add(Conv2D(64, (3, 3), padding="same",
+			input_shape=inputShape))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(Conv2D(64, (3, 3), padding="same",
+			input_shape=inputShape))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(MaxPooling2D(pool_size=(2, 2)))
+		model.add(Dropout(0.25))
+
+		# (CONV => RELU) * 2 => POOL
+		model.add(Conv2D(128, (3, 3), padding="same",
+			input_shape=inputShape))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(Conv2D(128, (3, 3), padding="same",
+			input_shape=inputShape))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization(axis=chanDim))
+		model.add(MaxPooling2D(pool_size=(2, 2)))
+		model.add(Dropout(0.25))
+
+		# first (and only) set of FC => RELU layers
+		model.add(Flatten())
+		model.add(Dense(1024))
+		model.add(Activation("relu"))
+		model.add(BatchNormalization())
+		model.add(Dropout(0.5))
+
+		# softmax classifier
+		model.add(Dense(classes))
+		model.add(Activation("softmax"))
+
+		# return the constructed network architecture
+		return model
+
+
+# set the matplotlib backend so figures can be saved in the background
+import matplotlib
+matplotlib.use("Agg")
+
+# import the necessary packages
+from keras.preprocessing.image import ImageDataGenerator
+from keras.optimizers import Adam
+from keras.preprocessing.image import img_to_array
+from sklearn.preprocessing import LabelBinarizer
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from imutils import paths
 import numpy as np
+import argparse
+import random
+import pickle
+import cv2
+import os
 
-img_height, img_width = (100,100)
-num_classes = 10
-epochs = 50
-batch_size = 32
-best_model = './model_stuff/best_model.h5'
-final_model = './model_stuff/final_model.h5'
-filepath = './model/training_log.csv'
-base_directory = os.path.join()
+# initialize the number of epochs to train for, initial learning rate,
+# batch size, and image dimensions
+EPOCHS = 100
+INIT_LR = 1e-3
+BS = 32
+IMAGE_DIMS = (96, 96, 3)
 
-X = []
-y = []
-all_img_paths = glob.glob(os.path.join(base_directory, "*/*.jpg"))
-np.random.shuffle(all_img_paths)
-for img_path in all_img_paths:
-    img = load_img(img_path)
-    img = img_to_array(img)
-    X.append(img)
-    label = 
-    y.append(label)
+# initialize the data and labels
+data = []
+labels = []
 
-X_train, y_train, X_test, y_test = train_test_split(X, y, test_split=0.2)
+# grab the image paths and randomly shuffle them
+print("[INFO] loading images...")
+imagePaths = glob.glob('train/*/*')
 
-model = Sequential()
-model.add(Convolution2D(64, (3,3), activation='relu', padding='same', input_shape=(img_height, img_width,3)))
-model.add(Convolution2D(64, (3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D((2,2), strides=(2,2)))
+random.seed(42)
+random.shuffle(imagePaths)
 
-model.add(Convolution2D(128, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(128, (3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D((2,2), strides=(2,2)))
+# loop over the input images
+for imagePath in imagePaths:
+	# load the image, pre-process it, and store it in the data list
+	image = cv2.imread(imagePath)
+	image = cv2.resize(image, (IMAGE_DIMS[1], IMAGE_DIMS[0]))
+	image = img_to_array(image)
+	data.append(image)
+ 
+	# extract the class label from the image path and update the
+	# labels list
+	label = imagePath.split(os.path.sep)[-2]
+	labels.append(label)
+print(labels[5])
+# # scale the raw pixel intensities to the range [0, 1]
+# data = np.array(data, dtype="float") / 255.0
+# labels = np.array(labels)
+# print("[INFO] data matrix: {:.2f}MB".format(
+# 	data.nbytes / (1024 * 1000.0)))
 
-model.add(Convolution2D(256, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(256, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(256, (3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D((2,2), strides=(2,2)))
+# # binarize the labels
+# lb = LabelBinarizer()
+# labels = lb.fit_transform(labels)
 
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D((2,2), strides=(2,2)))
+# # partition the data into training and testing splits using 80% of
+# # the data for training and the remaining 20% for testing
+# (trainX, testX, trainY, testY) = train_test_split(data,
+# 	labels, test_size=0.2, random_state=42)
 
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(Convolution2D(512, (3,3), activation='relu', padding='same'))
-model.add(MaxPooling2D((2,2), strides=(2,2)))
+# # construct the image generator for data augmentation
+# aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
+# 	height_shift_range=0.1, shear_range=0.2, zoom_range=0.2,
+# 	horizontal_flip=True, fill_mode="nearest")
 
-model.add(Flatten())
-model.add(Dense(256, activation='relu'))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(num_classes, activation='softmax'))
+# # initialize the model
+# print("[INFO] compiling model...")
+# model = SmallerVGGNet.build(width=IMAGE_DIMS[1], height=IMAGE_DIMS[0],
+# 	depth=IMAGE_DIMS[2], classes=len(lb.classes_))
+# opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
+# model.compile(loss="categorical_crossentropy", optimizer=opt,
+# 	metrics=["accuracy"])
 
-adam = Adam(lr=0.01)
-model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
-checkpoint = ModelCheckpoint(best_model, monitor='val_loss', verbose=1, save_best_only=True)
-csvlogger = CSVLogger(filepath, separator='\t')
-history = model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs, validation_split=0.2)
+# # train the network
+# print("[INFO] training network...")
+# H = model.fit_generator(
+# 	aug.flow(trainX, trainY, batch_size=BS),
+# 	validation_data=(testX, testY),
+# 	steps_per_epoch=len(trainX) // BS,
+# 	epochs=EPOCHS, verbose=1)
 
-from bokeh.plotting import output_file, show, figure
-from bokeh.layouts import gridplot
-output_file("training_plots.html")
+# # save the model to disk
+# print("[INFO] serializing network...")
+# model.save("plant_disease.model")
 
-acc = history.history['acc']
-loss = history.history['loss']
-val_acc = history.history['val_acc']
-val_loss = history.history['val_loss']
-x_axis = history.epoch
+# # save the label binarizer to disk
+# print("[INFO] serializing label binarizer...")
+# f = open("plant_disease.pickle", "wb")
+# f.write(pickle.dumps(lb))
+# f.close()
 
-p_acc = figure(
-    tools="pan, box_zoom, wheel_zoom, save, reset",
-    x_axis_label = "Epochs",
-    y_axis_label = "Training Accuracy",
-    title = "Epochs vs Training Accuracy Plot",
-    plot_height=500,
-    plot_width=500 
-)
-p_acc.line(x_axis, acc, legend='training accuracy', line_color='green')
-
-p_loss = figure(
-    tools="pan, box_zoom, wheel_zoom, save, reset",
-    x_axis_label = "Epochs",
-    y_axis_label = "Training Loss",
-    title = "Epochs vs Training Loss Plot",
-    plot_height=500,
-    plot_width=500 
-)
-p_loss.line(x_axis, acc, legend='training loss', line_color='red')
-
-p_val_acc = figure(
-    tools="pan, box_zoom, wheel_zoom, save, reset",
-    x_axis_label = "Epochs",
-    y_axis_label = "Validation Accuracy",
-    title = "Epochs vs Validation Accuracy Plot",
-    plot_height=500,
-    plot_width=500 
-)
-p_val_acc.line(x_axis, acc, legend='validation accuracy', line_color='green')
-
-p_val_loss = figure(
-    tools="pan, box_zoom, wheel_zoom, save, reset",
-    x_axis_label = "Epochs",
-    y_axis_label = "Validation Loss",
-    title = "Epochs vs Validation Loss Plot",
-    plot_height=500,
-    plot_width=500 
-)
-p_acc.line(x_axis, acc, legend='validation loss', line_color='red')
-
-grid = gridplot([[p_acc, p_loss], [p_val_acc, p_val_loss]])
-show(grid)
+# # plot the training loss and accuracy
+# plt.style.use("ggplot")
+# plt.figure()
+# N = EPOCHS
+# plt.plot(np.arange(0, N), H.history["loss"], label="train_loss")
+# plt.plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
+# plt.plot(np.arange(0, N), H.history["acc"], label="train_acc")
+# plt.plot(np.arange(0, N), H.history["val_acc"], label="val_acc")
+# plt.title("Training Loss and Accuracy")
+# plt.xlabel("Epoch #")
+# plt.ylabel("Loss/Accuracy")
+# plt.legend(loc="upper left")
+# plt.savefig("plant_disease.png")
