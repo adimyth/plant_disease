@@ -34,9 +34,10 @@ print("[INFO] classifying image...")
 proba = model.predict(image)[0]
 idx = np.argmax(proba)
 label = lb.classes_[idx]
-
 cv2.putText(output, label, (10, 25),  cv2.FONT_HERSHEY_SIMPLEX,
 	0.7, (0, 255, 0), 2)
+cv2.putText(output, str(np.max(proba)), (10, 55),  cv2.FONT_HERSHEY_SIMPLEX,
+	0.7, (0, 0, 255), 2)
 
 # show the output image
 cv2.imshow("Output", output)
