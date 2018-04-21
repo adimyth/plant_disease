@@ -18,7 +18,7 @@ from bokeh.palettes import Spectral6
 
 
 def prediction():
-    img_path = os.path.join('upload_folder', os.listdir('upload_folder')[0])
+    img_path = os.path.join(os.getcwd(), 'upload_folder', os.listdir('upload_folder')[0])
     model_path = os.path.join('models', 'plant_disease.model')
     binarizer_path = os.path.join('models', 'plant_disease.pickle')
 
@@ -64,6 +64,7 @@ def prediction():
 
     # image
     p1 = figure(x_range=(0,1), y_range=(0,1))
+    print(img_path)
     p1.image_url(url=[img_path], x=0, y=1, h=1, w=1)
     
     # plotting it altogether

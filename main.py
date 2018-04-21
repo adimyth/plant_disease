@@ -6,16 +6,13 @@ from flask import Flask, request, redirect, url_for
 import predict
 from shutil import copyfile
 
-UPLOAD_FOLDER = 'upload_folder'
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload_folder')
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def show_plot():
-    render_template("main.html")
 
 @app.route('/', methods=['GET','POST'])
 def upload_file():
@@ -32,12 +29,11 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             predict.prediction()
             copyfile("main.html", "templates/main.html")
-            show_plot()
     return render_template("index.html")
 
 @app.route('/results')
-def training_results():
-    return render_template("training_plots.html")
+def results():
+    return render_template("main.html")
 
 @app.route('/about')
 def about():
