@@ -1,5 +1,5 @@
 ## Plant Disease Detection
-A webapp to predict a the type of plant disease for a given sample.
+A webapp to predict the type of plant disease for a given sample.
 This repository is a simple project to identify different types of plant diseases.
 Dataset for the project was downloaded from [here.](https://github.com/spMohanty/PlantVillage-Dataset)
 
@@ -25,7 +25,7 @@ Following is the list of classes which we considered for our task:
 * powdery_mildew
 * target_spot
 
-Classes belonging to same disease but for different plants, were combined together to create more data samples. Example. Peach_Bacterial_Spot, Tomato_Bacterial_Spot & Pepper_Bell_Bacterial_Spot were combined together to form a single class **bacterial_spot.**
+Classes belonging to same disease but for different plants, were combined together to create more data samples. **Example** Peach_Bacterial_Spot, Tomato_Bacterial_Spot & Pepper_Bell_Bacterial_Spot were combined together to form a single class **bacterial_spot.**
 
 ### Count
 !["Sample Count"](extras/count.png)
@@ -44,11 +44,11 @@ Key points:
 ### Accuracy Plots
 !["Accuracy Plot"](extras/plant_disease.png)
 
-The entire model was done on [Google Colab](https://colab.research.google.com/), were they provide a GPU environment which is preconfigured for Deep Learning purpose.
+The entire model was trained on [Google Colab](https://colab.research.google.com/), were they provide a GPU environment which is preconfigured for Deep Learning purpose.
 
 My Google Colab Notebook for this project can be found [here.](https://drive.google.com/file/d/1yrSBy0bMJdNsih-jh6oCyTALB5ONACIy/view?usp=sharing)
 
-### How to run it
+### How to run it?
 
 #### Install the following list of packages
 * Flask
