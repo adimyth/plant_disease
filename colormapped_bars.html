@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bokeh Plot</title>
+        
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.css" type="text/css" />
+        
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.js"></script>
+<script type="text/javascript">
+    Bokeh.set_log_level("info");
+</script>
+    </head>
+    <body>
+        
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="83d0d067-5f7f-4ae4-8df7-660d2945509d"></div>
+        </div>
+        
+        <script type="application/json" id="85ba9b72-cfe6-4bda-9198-1730791ac182">
+          {"5bb04ea4-ba83-4ec8-aa29-42896861f1df":{"roots":{"references":[{"attributes":{"label":{"field":"classes"},"renderers":[{"id":"1ea08e31-7cda-4962-884b-f1cfca462cd2","type":"GlyphRenderer"}]},"id":"0a05f999-02d3-4761-9d4f-d75085ca397f","type":"LegendItem"},{"attributes":{"callback":null,"column_names":["classes","count","color"],"data":{"classes":["bacterial_spot","leaf_mold","leaf_blight","powdery_mildew","early_blight","yellow_leaf_curl_virus","spider_mites","mosaic_virus","target_spot","septoria_leaf_spot"],"color":["#3288bd","#99d594","#e6f598","#fee08b","#fc8d59","#d53e4f"],"count":[3294,952,2061,2887,2000,5357,1676,373,1404,1771]}},"id":"668853ca-d708-4118-99cf-e30530e93c3e","type":"ColumnDataSource"},{"attributes":{"formatter":{"id":"68e44659-857c-4f0b-b845-f27df30c713d","type":"BasicTickFormatter"},"plot":{"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"},"ticker":{"id":"2b103eae-ab56-4aee-bca2-a163108049be","type":"BasicTicker"}},"id":"00331929-6978-4d51-85d6-0a8f96f276ea","type":"LinearAxis"},{"attributes":{},"id":"de7b87f0-0fb7-423b-a4b5-120b51b4653d","type":"LinearScale"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto"},"id":"75935f92-bdee-4386-935e-b7670438ff12","type":"Toolbar"},{"attributes":{},"id":"2c1f5374-b767-4b84-9812-f5c69bb92d97","type":"CategoricalTickFormatter"},{"attributes":{"callback":null,"factors":["bacterial_spot","leaf_mold","leaf_blight","powdery_mildew","early_blight","yellow_leaf_curl_virus","spider_mites","mosaic_virus","target_spot","septoria_leaf_spot"]},"id":"e0e785fc-5cc8-489c-b42c-bbbabe3c9035","type":"FactorRange"},{"attributes":{"items":[{"id":"0a05f999-02d3-4761-9d4f-d75085ca397f","type":"LegendItem"}],"location":"top_center","orientation":"horizontal","plot":{"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"}},"id":"fc031486-2f63-466c-b11a-54a99895bd12","type":"Legend"},{"attributes":{},"id":"2b103eae-ab56-4aee-bca2-a163108049be","type":"BasicTicker"},{"attributes":{},"id":"9eb852f8-6952-4c06-8b86-b0630450866e","type":"CategoricalTicker"},{"attributes":{"source":{"id":"668853ca-d708-4118-99cf-e30530e93c3e","type":"ColumnDataSource"}},"id":"eded971a-3809-4823-82b0-f3d18cbdb526","type":"CDSView"},{"attributes":{"grid_line_color":{"value":null},"plot":{"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"},"ticker":{"id":"9eb852f8-6952-4c06-8b86-b0630450866e","type":"CategoricalTicker"}},"id":"d09237b9-3da9-4aad-9ee6-3c70a21b8e44","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"top":{"field":"count"},"width":{"value":0.9},"x":{"field":"classes"}},"id":"2ddd378c-e503-4497-ad5d-865fe61d1e45","type":"VBar"},{"attributes":{"fill_color":{"field":"color"},"line_color":{"field":"color"},"top":{"field":"count"},"width":{"value":0.9},"x":{"field":"classes"}},"id":"10dd3d22-4153-41a7-ab48-012c5a4d5dbc","type":"VBar"},{"attributes":{"dimension":1,"plot":{"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"},"ticker":{"id":"2b103eae-ab56-4aee-bca2-a163108049be","type":"BasicTicker"}},"id":"c313f74a-36bf-40a2-94bb-aea27408f8b6","type":"Grid"},{"attributes":{"plot":null,"text":"Sample Counts"},"id":"cb1d0382-20a4-46da-acf9-24cf55618737","type":"Title"},{"attributes":{"callback":null,"end":6000},"id":"1147fdad-5e19-4aa5-b296-e01164af8c72","type":"Range1d"},{"attributes":{},"id":"05dbe279-140d-4c2f-b486-b34eed2b7b7c","type":"CategoricalScale"},{"attributes":{},"id":"68e44659-857c-4f0b-b845-f27df30c713d","type":"BasicTickFormatter"},{"attributes":{"formatter":{"id":"2c1f5374-b767-4b84-9812-f5c69bb92d97","type":"CategoricalTickFormatter"},"major_label_orientation":"vertical","plot":{"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"},"ticker":{"id":"9eb852f8-6952-4c06-8b86-b0630450866e","type":"CategoricalTicker"}},"id":"29caf2ac-39a1-413e-aa09-9e2b49d112f3","type":"CategoricalAxis"},{"attributes":{"below":[{"id":"29caf2ac-39a1-413e-aa09-9e2b49d112f3","type":"CategoricalAxis"}],"left":[{"id":"00331929-6978-4d51-85d6-0a8f96f276ea","type":"LinearAxis"}],"plot_height":350,"renderers":[{"id":"29caf2ac-39a1-413e-aa09-9e2b49d112f3","type":"CategoricalAxis"},{"id":"d09237b9-3da9-4aad-9ee6-3c70a21b8e44","type":"Grid"},{"id":"00331929-6978-4d51-85d6-0a8f96f276ea","type":"LinearAxis"},{"id":"c313f74a-36bf-40a2-94bb-aea27408f8b6","type":"Grid"},{"id":"fc031486-2f63-466c-b11a-54a99895bd12","type":"Legend"},{"id":"1ea08e31-7cda-4962-884b-f1cfca462cd2","type":"GlyphRenderer"}],"title":{"id":"cb1d0382-20a4-46da-acf9-24cf55618737","type":"Title"},"toolbar":{"id":"75935f92-bdee-4386-935e-b7670438ff12","type":"Toolbar"},"toolbar_location":null,"x_range":{"id":"e0e785fc-5cc8-489c-b42c-bbbabe3c9035","type":"FactorRange"},"x_scale":{"id":"05dbe279-140d-4c2f-b486-b34eed2b7b7c","type":"CategoricalScale"},"y_range":{"id":"1147fdad-5e19-4aa5-b296-e01164af8c72","type":"Range1d"},"y_scale":{"id":"de7b87f0-0fb7-423b-a4b5-120b51b4653d","type":"LinearScale"}},"id":"f7bb888f-e284-4cc3-b664-78cfad1db579","subtype":"Figure","type":"Plot"},{"attributes":{"data_source":{"id":"668853ca-d708-4118-99cf-e30530e93c3e","type":"ColumnDataSource"},"glyph":{"id":"10dd3d22-4153-41a7-ab48-012c5a4d5dbc","type":"VBar"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"2ddd378c-e503-4497-ad5d-865fe61d1e45","type":"VBar"},"selection_glyph":null,"view":{"id":"eded971a-3809-4823-82b0-f3d18cbdb526","type":"CDSView"}},"id":"1ea08e31-7cda-4962-884b-f1cfca462cd2","type":"GlyphRenderer"}],"root_ids":["f7bb888f-e284-4cc3-b664-78cfad1db579"]},"title":"Bokeh Application","version":"0.12.14"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('85ba9b72-cfe6-4bda-9198-1730791ac182').textContent;
+                  var render_items = [{"docid":"5bb04ea4-ba83-4ec8-aa29-42896861f1df","elementid":"83d0d067-5f7f-4ae4-8df7-660d2945509d","modelid":"f7bb888f-e284-4cc3-b664-78cfad1db579"}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing")
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    </body>
+</html>

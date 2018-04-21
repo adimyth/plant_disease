@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bokeh Plot</title>
+        
+<link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.css" type="text/css" />
+        
+<script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.14.min.js"></script>
+<script type="text/javascript">
+    Bokeh.set_log_level("info");
+</script>
+    </head>
+    <body>
+        
+        <div class="bk-root">
+            <div class="bk-plotdiv" id="8f435627-370c-4a41-8944-76cc51e8c44e"></div>
+        </div>
+        
+        <script type="application/json" id="626dabc5-5d4e-44e8-ae94-fbbcd1e5d3e9">
+          {"60296cb9-238c-4aec-ba25-00b72e067ccf":{"roots":{"references":[{"attributes":{"overlay":{"id":"8349da3a-e15c-406b-ab43-6a0495f1d65b","type":"BoxAnnotation"}},"id":"762c5df8-691e-4ce7-b337-4c04cb2f70b1","type":"BoxZoomTool"},{"attributes":{},"id":"19d994da-fcc1-4165-92ae-a42d9bfb8bb4","type":"CategoricalTicker"},{"attributes":{},"id":"c2c4f059-2bdd-463d-8c32-2bc42e846da8","type":"SaveTool"},{"attributes":{"callback":null,"factors":["bacterial_spot","leaf_mold","leaf_blight","powdery_mildew","early_blight","yellow_leaf_curl_virus","spider_mites","mosaic_virus","target_spot","septoria_leaf_spot"]},"id":"03efe187-59dd-4ba4-a540-d251a39b9375","type":"FactorRange"},{"attributes":{},"id":"6554e4eb-f7bf-4504-a575-1c39ac576fc8","type":"ResetTool"},{"attributes":{},"id":"d54aea1b-6822-4ddd-bff7-082657fb2f16","type":"HelpTool"},{"attributes":{"plot":null,"text":"Sample Counts"},"id":"22415b92-b44f-48c6-9b13-11e3b9a13fac","type":"Title"},{"attributes":{"grid_line_color":{"value":null},"plot":{"id":"852721db-42ac-4d68-a343-0c170cdc7894","subtype":"Figure","type":"Plot"},"ticker":{"id":"19d994da-fcc1-4165-92ae-a42d9bfb8bb4","type":"CategoricalTicker"}},"id":"8eccbb7d-c381-4248-a6d2-9e174dc70eeb","type":"Grid"},{"attributes":{"formatter":{"id":"0217e666-c1f2-4fb7-82d4-44cb4092a5e1","type":"BasicTickFormatter"},"plot":{"id":"852721db-42ac-4d68-a343-0c170cdc7894","subtype":"Figure","type":"Plot"},"ticker":{"id":"1762a974-09ae-49e4-9b9a-df30340d0980","type":"BasicTicker"}},"id":"74762860-b82b-44f4-8caa-74207104a710","type":"LinearAxis"},{"attributes":{"source":{"id":"80be0a2c-932f-4cd7-b36c-71ceeb945bca","type":"ColumnDataSource"}},"id":"74e53315-28ce-4313-a1b7-7003a2729352","type":"CDSView"},{"attributes":{},"id":"0217e666-c1f2-4fb7-82d4-44cb4092a5e1","type":"BasicTickFormatter"},{"attributes":{},"id":"7037341e-935b-44d1-b00b-2e611efdff0d","type":"LinearScale"},{"attributes":{"callback":null,"end":6000},"id":"d0ec8bf4-449b-47b9-89a7-1b89bcf64cba","type":"Range1d"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"id":"8644dc6b-de4e-43a4-85a5-f74d877bcef9","type":"PanTool"},{"id":"65181a28-38cb-413c-83ef-05c28c95aee4","type":"WheelZoomTool"},{"id":"762c5df8-691e-4ce7-b337-4c04cb2f70b1","type":"BoxZoomTool"},{"id":"c2c4f059-2bdd-463d-8c32-2bc42e846da8","type":"SaveTool"},{"id":"6554e4eb-f7bf-4504-a575-1c39ac576fc8","type":"ResetTool"},{"id":"d54aea1b-6822-4ddd-bff7-082657fb2f16","type":"HelpTool"}]},"id":"e075852c-651e-4ab7-85ce-9dfdefad1f71","type":"Toolbar"},{"attributes":{"callback":null,"column_names":["classes","count","color"],"data":{"classes":["bacterial_spot","leaf_mold","leaf_blight","powdery_mildew","early_blight","yellow_leaf_curl_virus","spider_mites","mosaic_virus","target_spot","septoria_leaf_spot"],"color":["#3288bd","#99d594","#e6f598","#fee08b","#fc8d59","#d53e4f"],"count":[3294,952,2061,2887,2000,5357,1676,373,1404,1771]}},"id":"80be0a2c-932f-4cd7-b36c-71ceeb945bca","type":"ColumnDataSource"},{"attributes":{"below":[{"id":"2f3c79a1-5aaa-49f5-b705-8b659fbc8c4a","type":"CategoricalAxis"}],"left":[{"id":"74762860-b82b-44f4-8caa-74207104a710","type":"LinearAxis"}],"plot_height":350,"renderers":[{"id":"2f3c79a1-5aaa-49f5-b705-8b659fbc8c4a","type":"CategoricalAxis"},{"id":"8eccbb7d-c381-4248-a6d2-9e174dc70eeb","type":"Grid"},{"id":"74762860-b82b-44f4-8caa-74207104a710","type":"LinearAxis"},{"id":"9b820e60-4700-491c-823c-f09884004a88","type":"Grid"},{"id":"8349da3a-e15c-406b-ab43-6a0495f1d65b","type":"BoxAnnotation"},{"id":"d23a16ba-5b66-4570-abd7-4a8905feec84","type":"GlyphRenderer"}],"title":{"id":"22415b92-b44f-48c6-9b13-11e3b9a13fac","type":"Title"},"toolbar":{"id":"e075852c-651e-4ab7-85ce-9dfdefad1f71","type":"Toolbar"},"x_range":{"id":"03efe187-59dd-4ba4-a540-d251a39b9375","type":"FactorRange"},"x_scale":{"id":"5130716f-ad0d-45d9-9bd8-eb9b129f707a","type":"CategoricalScale"},"y_range":{"id":"d0ec8bf4-449b-47b9-89a7-1b89bcf64cba","type":"Range1d"},"y_scale":{"id":"7037341e-935b-44d1-b00b-2e611efdff0d","type":"LinearScale"}},"id":"852721db-42ac-4d68-a343-0c170cdc7894","subtype":"Figure","type":"Plot"},{"attributes":{"fill_color":{"field":"color"},"line_color":{"field":"color"},"top":{"field":"count"},"width":{"value":0.9},"x":{"field":"classes"}},"id":"3cf4ebb4-3bab-4bb4-91cd-0379c2cff95f","type":"VBar"},{"attributes":{"formatter":{"id":"2628f797-3f09-4d21-8c3d-48996b598c93","type":"CategoricalTickFormatter"},"major_label_orientation":"vertical","plot":{"id":"852721db-42ac-4d68-a343-0c170cdc7894","subtype":"Figure","type":"Plot"},"ticker":{"id":"19d994da-fcc1-4165-92ae-a42d9bfb8bb4","type":"CategoricalTicker"}},"id":"2f3c79a1-5aaa-49f5-b705-8b659fbc8c4a","type":"CategoricalAxis"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"top":{"field":"count"},"width":{"value":0.9},"x":{"field":"classes"}},"id":"34c1ff86-1eb3-4fc2-a914-70297c487f82","type":"VBar"},{"attributes":{},"id":"1762a974-09ae-49e4-9b9a-df30340d0980","type":"BasicTicker"},{"attributes":{"data_source":{"id":"80be0a2c-932f-4cd7-b36c-71ceeb945bca","type":"ColumnDataSource"},"glyph":{"id":"3cf4ebb4-3bab-4bb4-91cd-0379c2cff95f","type":"VBar"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"34c1ff86-1eb3-4fc2-a914-70297c487f82","type":"VBar"},"selection_glyph":null,"view":{"id":"74e53315-28ce-4313-a1b7-7003a2729352","type":"CDSView"}},"id":"d23a16ba-5b66-4570-abd7-4a8905feec84","type":"GlyphRenderer"},{"attributes":{"dimension":1,"plot":{"id":"852721db-42ac-4d68-a343-0c170cdc7894","subtype":"Figure","type":"Plot"},"ticker":{"id":"1762a974-09ae-49e4-9b9a-df30340d0980","type":"BasicTicker"}},"id":"9b820e60-4700-491c-823c-f09884004a88","type":"Grid"},{"attributes":{"bottom_units":"screen","fill_alpha":{"value":0.5},"fill_color":{"value":"lightgrey"},"left_units":"screen","level":"overlay","line_alpha":{"value":1.0},"line_color":{"value":"black"},"line_dash":[4,4],"line_width":{"value":2},"plot":null,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"8349da3a-e15c-406b-ab43-6a0495f1d65b","type":"BoxAnnotation"},{"attributes":{},"id":"2628f797-3f09-4d21-8c3d-48996b598c93","type":"CategoricalTickFormatter"},{"attributes":{},"id":"8644dc6b-de4e-43a4-85a5-f74d877bcef9","type":"PanTool"},{"attributes":{},"id":"5130716f-ad0d-45d9-9bd8-eb9b129f707a","type":"CategoricalScale"},{"attributes":{},"id":"65181a28-38cb-413c-83ef-05c28c95aee4","type":"WheelZoomTool"}],"root_ids":["852721db-42ac-4d68-a343-0c170cdc7894"]},"title":"Bokeh Application","version":"0.12.14"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('626dabc5-5d4e-44e8-ae94-fbbcd1e5d3e9').textContent;
+                  var render_items = [{"docid":"60296cb9-238c-4aec-ba25-00b72e067ccf","elementid":"8f435627-370c-4a41-8944-76cc51e8c44e","modelid":"852721db-42ac-4d68-a343-0c170cdc7894"}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing")
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    </body>
+</html>
