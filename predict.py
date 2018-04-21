@@ -1,65 +1,71 @@
+# necessary imports
+from keras.preprocessing.image import img_to_array
 from keras.models import load_model
-import os
-import h5py
-import cv2
 import numpy as np
-import itertools
-from keras.preprocessing.image import load_img, img_to_array
-from bokeh.plotting import Figure, show, output_file
+import imutils
+import pickle
+import cv2
+import os
+from skimage import io
+import matplotlib.pyplot as plt
+# bokeh imports
+import bokeh
+from bokeh.layouts import column
+from bokeh.plotting import Figure, show, output_file, figure
 from bokeh.models import ColumnDataSource
 from bokeh.layouts import gridplot
-from bokeh.palettes import Category10 as palette
+from bokeh.palettes import Spectral6
 
-labels = ['BacterialSpot', 'EarlyBlight', 'LeafBlight', 'LeafMold', 'MosaicVirus', 'PowderyMildew', 'SeptoriaLeafSpot', 'SpiderMites', 'TargetSpot', 'YellowLeafCurlVirus']
-model_path = os.path.join("model_stuff", "trained_model.h5")
-img_width, img_height = (70, 70)
 
-def prediction(image):
-    # loading model
-    model = load_model(model_path)
+def prediction():
+    img_path = os.path.join('upload_folder', os.listdir('upload_folder')[0])
+    model_path = os.path.join('models', 'plant_disease.model')
+    binarizer_path = os.path.join('models', 'plant_disease.pickle')
 
-    # reading image
-    img = cv2.imread(image)
-    img = cv2.resize(img, (70,70))
-    # img /= 255
-
-    # processing image
-    blurImg = cv2.GaussianBlur(img, (5, 5), 0)   
-    hsvImg = cv2.cvtColor(blurImg, cv2.COLOR_BGR2HSV)  
-    lower_green = (25, 40, 50)
-    upper_green = (75, 255, 255)
-    mask = cv2.inRange(hsvImg, lower_green, upper_green)  
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-    bMask = mask > 0  
-    clear = np.zeros_like(img, np.uint8)
-    clear[bMask] = img[bMask]
-
-    # cv2.imwrite("processed.png", clear)
-    # clear /= 255
-    clear = np.expand_dims(clear, axis=0)
-
-    # making prediction
-    prediction = model.predict(clear)
-    print(prediction)
-    x = labels
-    y = list(prediction)
-
-    output_file("plots.html")
-    colors = itertools.cycle(palette)
-
-    # displaying the image    
-    # url = str(image)
-    # source = ColumnDataSource(data=dict(url = url))
-    # p1 = Figure(x_range=(0,1), y_range=(0,1), plot_width=600, plot_height=400)
-    # p1.image_url(url='url', x=0, y=1, h=1, w=1, source=source)
+    # reading only the first image from the upload_folder
+    image = cv2.imread(img_path) 
+    output = image.copy()
     
-    # plotting the barplot
-    source = ColumnDataSource(data=dict(x=x, y=y, color=colors))
-    p2 = Figure(x_range=labels, y_range=(0,1), plot_height=400, plot_width=600, title="Class Probabilites")
-    p2.xaxis.major_label_orientation = "vertical"
-    p2.vbar(x='x', top='y',width=0.9, color='color', legend='x', source=source)
+    # pre-process the image for classification
+    image = cv2.resize(image, (80, 80))
+    image = image.astype("float") / 255.0
+    image = img_to_array(image)
+    image = np.expand_dims(image, axis=0)
 
-    # layout 
-    grid = gridplot([[p2]])
-    show(grid)
+    # load the trained convolutional neural network and the label
+    # binarizer
+    print("[INFO] loading network...")
+    model = load_model(model_path)
+    lb = pickle.loads(open(binarizer_path, "rb").read())
+
+    # classify the input image
+    print("[INFO] classifying image...")
+    proba = model.predict(image)[0]
+    idx = np.argmax(proba)
+    label = lb.classes_[idx]
+    probability = str(np.max(proba))
+
+    # show the output image
+    classes = lb.classes_
+    source = ColumnDataSource(data=dict(classes=classes, probability=proba, color=Spectral6))
+
+    plot_height = 600
+    plot_width = 800
+    color_mapper = None
+
+    # barplot
+    p = Figure(x_range=classes, y_range=(0,1), plot_height=plot_height, plot_width=plot_width, title="Class Probabilites")
+    p.vbar(x='classes', top='probability', width=0.9, source=source)
+    p.xgrid.grid_line_color = None
+    p.xaxis.major_label_orientation = "vertical"
+    p.xaxis.major_label_text_font_style = "italic"
+    p.xaxis.major_label_text_font_size = "12pt"
+    p.yaxis.major_label_text_font_size = "12pt"
+
+    # image
+    p1 = figure(x_range=(0,1), y_range=(0,1))
+    p1.image_url(url=[img_path], x=0, y=1, h=1, w=1)
+    
+    # plotting it altogether
+    show(column(p1, p))
+# prediction()
