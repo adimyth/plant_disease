@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from flask import *
 from flask import Flask, request, redirect, url_for
 import predict
+import glob
 from shutil import copyfile
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'upload_folder')
@@ -29,6 +30,14 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             predict.prediction()
             copyfile("main.html", "templates/main.html")
+    return render_template("index.html")
+
+@app.route('/clean')
+def clean():
+    print("[INFO] cleaning upload folder...")
+    files = glob.glob('upload_folder/*')
+    for f in files:
+        os.remove(f)
     return render_template("index.html")
 
 @app.route('/results')
